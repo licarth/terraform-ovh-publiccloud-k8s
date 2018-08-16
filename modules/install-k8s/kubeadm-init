@@ -11,6 +11,9 @@ export PATH=$PATH:/opt/k8s/bin
 export ETCDCTL_API=3
 ETCDCTL_COMMAND="/opt/k8s/bin/etcdctl --cacert $ETCD_CA_FILE --cert $ETCD_CERT_FILE --key $ETCD_KEY_FILE --endpoints $ETCD_ENDPOINTS"
 
+#Cloud provider config on master and workers.
+/opt/k8s/cloud-config.sh > /etc/kubernetes/cloud-config
+
 # Node is a master
 if [ "$MASTER_MODE" == "1" ]; then
     # generate kubeadm config
