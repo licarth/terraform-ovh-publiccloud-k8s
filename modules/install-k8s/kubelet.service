@@ -31,7 +31,8 @@ ExecStart=/opt/k8s/bin/kubelet \
   --cluster-domain=${CLUSTER_DOMAIN} \
   --authorization-mode=${AUTH_MODE} \
   --client-ca-file=${CLIENT_CA_FILE} \
-  --rotate-certificates=true
+  --rotate-certificates=true \
+  --cloud-provider=external
 
 Restart=always
 StartLimitInterval=0

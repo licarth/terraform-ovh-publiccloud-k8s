@@ -1,6 +1,7 @@
 cat <<EOF
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
+cloudProvider: external
 etcd:
   endpoints:
 $(echo "${ETCD_ENDPOINTS:-https://127.0.0.1:2379}" | cut -d, -f1- --output-delimiter=$'\n' | sed 's/\(.*\)/   - \1/g')
@@ -22,4 +23,8 @@ selfHosted: false
 apiServerCertSANs:
 $(echo "${API_SERVER_CERT_SANS:-127.0.0.1}" | cut -d, -f1- --output-delimiter=$'\n' | sed 's/\(.*\)/- \1/g')
 certificatesDir: "/etc/kubernetes/pki"
+apiServerExtraVolumes:
+- name: ca-certs
+  hostPath: /usr/share/ca-certificates/
+  mountPath: /etc/ssl/certs/
 EOF
